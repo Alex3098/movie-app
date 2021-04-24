@@ -1,0 +1,17 @@
+.App {
+  background-color: orange;
+}
+.main_content {
+  display: flex;
+}
+
+.main_content_movies {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.main_content_genres {
+  width: 20%;
+}

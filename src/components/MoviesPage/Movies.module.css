@@ -1,0 +1,29 @@
+.movie {
+  width: 250px;
+  margin: 15px;
+  background-color: #14213d;
+}
+
+.movie img {
+  width: 250px;
+  height: 300px;
+}
+
+.movie_info_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+
+  color: white;
+}
+
+.movie_info_top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.movie_info_top h3 {
+  width: 65%;
+}
