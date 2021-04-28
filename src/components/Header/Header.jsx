@@ -10,7 +10,11 @@ export default function Header(props) {
         <img src={logo} alt="Movies" />
       </div>
       <div className={style.search_form}>
-        <Form SearchMovie={props.SearchMovie} setSear={props.setSear} />
+        <Form
+          SearchMovie={props.SearchMovie}
+          setSear={props.setSear}
+          changeMovie={props.changeMovie}
+        />
       </div>
     </div>
   );

@@ -11,7 +11,12 @@ export default function Form(props) {
     <div>
       <div className={style.form_wrapper}>
         <form onSubmit={props.SearchMovie}>
-          <input type="text" name="movieTitle" placeholder="Search movie" />
+          <input
+            type="text"
+            name="movieTitle"
+            placeholder="Search movie"
+            onChange={props.changeMovie}
+          />
 
           <button
             onClick={TableClac}

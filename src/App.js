@@ -40,12 +40,15 @@ function App() {
       }
     }
     movieList();
-  }, [movieTitle, page, sear]);
+  }, [page, sear]);
+
+  const changeMovie = (e) => {
+    setMovieTitle(e.target.value);
+  };
 
   const SearchMovie = async (e) => {
     e.preventDefault();
     try {
-      setMovieTitle(e.target.elements.movieTitle.value);
       const api_call = await fetch(
         `https://api.themoviedb.org/3/search/movie?&api_key=${API_KEY}&query=${movieTitle}`
       );
@@ -58,7 +61,11 @@ function App() {
 
   return (
     <div className={style.App}>
-      <Header SearchMovie={SearchMovie} setSear={setSear} />
+      <Header
+        SearchMovie={SearchMovie}
+        setSear={setSear}
+        changeMovie={changeMovie}
+      />
       <div className={style.main_content}>
         <div className={style.main_content_movies}>
           {moviesData &&
