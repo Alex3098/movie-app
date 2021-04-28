@@ -5,6 +5,7 @@ export default function Form(props) {
   const [clac, setClac] = React.useState(0);
   const TableClac = () => {
     setClac(1);
+    props.setSear(true);
   };
   return (
     <div>

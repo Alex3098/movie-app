@@ -15,3 +15,17 @@
 .main_content_genres {
   width: 20%;
 }
+
+.load_more_wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.load_more_wrapper button {
+  width: 150px;
+  height: 30px;
+  background-color: #14213d;
+  color: aliceblue;
+  font-size: 15px;
+}

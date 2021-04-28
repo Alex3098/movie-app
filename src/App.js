@@ -6,23 +6,46 @@ import Genres from "./components/Genres/Genres";
 
 function App() {
   const API_KEY = process.env.REACT_APP_API_KEY;
+  const [page, setPage] = React.useState(1);
   const [moviesData, setMoviesData] = React.useState([]);
+  const [sear, setSear] = React.useState(false);
+  const [movieTitle, setMovieTitle] = React.useState();
+  const [totalPages, setTotalPages] = React.useState();
+
+  const handleLoad = (e) => {
+    let element = e.target;
+    if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+      setPage((prev) => prev + 1);
+    }
+  };
+
   React.useEffect(() => {
     async function movieList() {
-      const api_call = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}&page=1`
-      );
-      const data = await api_call.json();
-      console.log(data);
-      setMoviesData(data.results);
+      if (sear) {
+        const api_call = await fetch(
+          `https://api.themoviedb.org/3/search/movie?&api_key=${process.env.REACT_APP_API_KEY}&query=${movieTitle}&page=${page}`
+        );
+        const data = await api_call.json();
+        console.log(data);
+        setMoviesData((prev) => [...prev, ...data.results]);
+        setTotalPages(data.total_pages);
+      } else {
+        const api_call = await fetch(
+          `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${process.env.REACT_APP_API_KEY}&page=${page}`
+        );
+        const data = await api_call.json();
+        console.log(data);
+        setMoviesData((prev) => [...prev, ...data.results]);
+        setTotalPages(data.total_pages);
+      }
     }
     movieList();
-  }, []);
+  }, [movieTitle, page, sear]);
 
   const SearchMovie = async (e) => {
     e.preventDefault();
     try {
-      const movieTitle = e.target.elements.movieTitle.value;
+      setMovieTitle(e.target.elements.movieTitle.value);
       const api_call = await fetch(
         `https://api.themoviedb.org/3/search/movie?&api_key=${API_KEY}&query=${movieTitle}`
       );
@@ -35,13 +58,13 @@ function App() {
 
   return (
     <div className={style.App}>
-      <Header SearchMovie={SearchMovie} />
+      <Header SearchMovie={SearchMovie} setSear={setSear} />
       <div className={style.main_content}>
         <div className={style.main_content_movies}>
           {moviesData &&
-            moviesData.map((movie) => (
+            moviesData.map((movie, index) => (
               <Movies
-                key={movie.id}
+                key={index}
                 title={movie.title}
                 poster={movie.poster_path}
                 release={movie.release_date}
@@ -53,6 +76,13 @@ function App() {
           <Genres />
         </div>
       </div>
+      {page < totalPages ? (
+        <div className={style.load_more_wrapper}>
+          <button onClick={handleLoad}>Load more</button>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
