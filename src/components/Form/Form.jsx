@@ -19,6 +19,7 @@ export default function Form(props) {
           />
 
           <button
+            disabled
             onClick={TableClac}
             onAnimationEnd={() => setClac(0)}
             clac={clac}
